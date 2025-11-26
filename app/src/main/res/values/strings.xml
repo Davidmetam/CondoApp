@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">CondoApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Anuncios</string>
+    <string name="title_dashboard">Servicios</string>
+    <string name="title_notifications">Perfil</string>
+    <string name="login_welcome">Bienvenido a CondoApp</string>
+    <string name="login_subtitle">Gestiona tu hogar con confianza</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="register_text">¿No tienes cuenta? Solicita acceso</string>
 </resources>
