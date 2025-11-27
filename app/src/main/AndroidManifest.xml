@@ -11,31 +11,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CondoApp">
+
         <activity
-            android:name=".MaintenanceActivity"
-            android:exported="false" />
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
-            android:name=".VisitorAccessActivity"
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".AccountStatusActivity"
             android:exported="false" />
         <activity
             android:name=".ReservationsActivity"
             android:exported="false" />
         <activity
-            android:name=".AccountStatusActivity"
+            android:name=".VisitorAccessActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".MaintenanceActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

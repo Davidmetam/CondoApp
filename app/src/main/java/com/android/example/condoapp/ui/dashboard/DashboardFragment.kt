@@ -1,12 +1,12 @@
 package com.android.example.condoapp.ui.dashboard
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.android.example.condoapp.AccountStatusActivity
 import com.android.example.condoapp.MaintenanceActivity
@@ -14,6 +14,7 @@ import com.android.example.condoapp.R
 import com.android.example.condoapp.ReservationsActivity
 import com.android.example.condoapp.VisitorAccessActivity
 import com.android.example.condoapp.databinding.FragmentDashboardBinding
+import com.android.example.condoapp.databinding.ItemMenuCardBinding
 
 class DashboardFragment : Fragment() {
 
@@ -34,48 +35,51 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupMenuCard(
-            cardView = binding.cardFinance,
+            cardBinding = binding.cardFinance,
             title = "Finanzas",
             iconRes = R.drawable.ic_dashboard_black_24dp,
             activityClass = AccountStatusActivity::class.java
         )
 
         setupMenuCard(
-            cardView = binding.cardReservations,
+            cardBinding = binding.cardReservations,
             title = "Reservas",
             iconRes = R.drawable.ic_home_black_24dp,
             activityClass = ReservationsActivity::class.java
         )
 
         setupMenuCard(
-            cardView = binding.cardVisits,
+            cardBinding = binding.cardVisits,
             title = "Visitas",
             iconRes = R.drawable.ic_dashboard_black_24dp,
             activityClass = VisitorAccessActivity::class.java
         )
 
         setupMenuCard(
-            cardView = binding.cardReports,
+            cardBinding = binding.cardReports,
             title = "Reportes",
             iconRes = R.drawable.ic_notifications_black_24dp,
             activityClass = MaintenanceActivity::class.java
         )
 
-        val titleDirectory = binding.cardDirectory.findViewById<TextView>(R.id.tv_menu_title)
-        titleDirectory.text = "Directorio"
+        binding.cardDirectory.tvMenuTitle.text = "Directorio"
 
-        binding.cardSos.setOnClickListener {
+        val orangeColor = ContextCompat.getColor(requireContext(), R.color.naranja_ambar)
+        binding.cardSos.root.setCardBackgroundColor(Color.parseColor("#FFEBEE"))
+        binding.cardSos.tvMenuTitle.text = "SOS"
+        binding.cardSos.tvMenuTitle.setTextColor(orangeColor)
+        binding.cardSos.iconMenu.setImageResource(R.drawable.ic_notifications_black_24dp)
+        binding.cardSos.iconMenu.setColorFilter(orangeColor)
+
+        binding.cardSos.root.setOnClickListener {
         }
     }
 
-    private fun setupMenuCard(cardView: View, title: String, iconRes: Int, activityClass: Class<*>) {
-        val tvTitle = cardView.findViewById<TextView>(R.id.tv_menu_title)
-        val imgIcon = cardView.findViewById<ImageView>(R.id.icon_menu)
+    private fun setupMenuCard(cardBinding: ItemMenuCardBinding, title: String, iconRes: Int, activityClass: Class<*>) {
+        cardBinding.tvMenuTitle.text = title
+        cardBinding.iconMenu.setImageResource(iconRes)
 
-        tvTitle.text = title
-        imgIcon.setImageResource(iconRes)
-
-        cardView.setOnClickListener {
+        cardBinding.root.setOnClickListener {
             val intent = Intent(context, activityClass)
             startActivity(intent)
         }

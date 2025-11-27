@@ -40,8 +40,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/ic_launcher_round"
-        android:backgroundTint="@color/blanco_puro"
+        android:background="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toBottomOf="@+id/tv_home_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_home_welcome" />
