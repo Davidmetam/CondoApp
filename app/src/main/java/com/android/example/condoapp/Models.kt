@@ -1,0 +1,28 @@
+package com.android.example.condoapp
+
+data class Announcement(
+    val title: String,
+    val date: String,
+    val content: String,
+    val type: String
+)
+
+data class Transaction(
+    val concept: String,
+    val date: String,
+    val amount: String,
+    val isPositive: Boolean
+)
+
+data class Reservation(
+    val areaName: String,
+    val dateTime: String,
+    val status: String
+)
+
+data class Ticket(
+    val title: String,
+    val status: String,
+    val date: String,
+    val description: String
+)
