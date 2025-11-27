@@ -1,20 +1,25 @@
 package com.android.example.condoapp
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.example.condoapp.adapters.ReservationAdapter
+import com.android.example.condoapp.databinding.ActivityReservationsBinding
 
 class ReservationsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityReservationsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_reservations)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityReservationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val reservations = listOf(
+            Reservation("Terraza A", "30 Oct 2025, 14:00", "Aprobada"),
+            Reservation("Salón Usos Múltiples", "15 Nov 2025, 20:00", "Pendiente")
+        )
+
+        binding.rvMyReservations.layoutManager = LinearLayoutManager(this)
+        binding.rvMyReservations.adapter = ReservationAdapter(reservations)
     }
 }

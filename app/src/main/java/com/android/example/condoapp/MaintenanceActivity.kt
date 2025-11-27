@@ -1,20 +1,25 @@
 package com.android.example.condoapp
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.example.condoapp.adapters.TicketAdapter
+import com.android.example.condoapp.databinding.ActivityMaintenanceBinding
 
 class MaintenanceActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMaintenanceBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_maintenance)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityMaintenanceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val tickets = listOf(
+            Ticket("Fuga de agua en baño", "En Progreso", "25 Oct", "Se detectó gotera constante en lavabo principal."),
+            Ticket("Luz pasillo fundida", "Reportado", "26 Oct", "Lámpara frente al 101 no enciende.")
+        )
+
+        binding.rvTickets.layoutManager = LinearLayoutManager(this)
+        binding.rvTickets.adapter = TicketAdapter(tickets)
     }
 }

@@ -27,51 +27,64 @@
             android:columnCount="2"
             android:rowCount="3">
 
-            <include layout="@layout/item_menu_card"
+            <include
+                android:id="@+id/card_finance"
+                layout="@layout/item_menu_card"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1" />
 
-            <include layout="@layout/item_menu_card"
+            <include
+                android:id="@+id/card_reservations"
+                layout="@layout/item_menu_card"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1" />
 
-            <include layout="@layout/item_menu_card"
+            <include
+                android:id="@+id/card_visits"
+                layout="@layout/item_menu_card"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1" />
 
-            <include layout="@layout/item_menu_card"
+            <include
+                android:id="@+id/card_reports"
+                layout="@layout/item_menu_card"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1" />
 
-            <include layout="@layout/item_menu_card"
+            <include
+                android:id="@+id/card_directory"
+                layout="@layout/item_menu_card"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_sos"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="8dp"
                 android:layout_columnWeight="1"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#FFEBEE"> <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_notifications_black_24dp"
-                    app:tint="@color/naranja_ambar"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SOS"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/naranja_ambar"
-                    android:layout_marginTop="8dp"/>
-            </LinearLayout>
+                app:cardBackgroundColor="#FFEBEE">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_notifications_black_24dp"
+                        app:tint="@color/naranja_ambar"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SOS"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/naranja_ambar"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </GridLayout>
