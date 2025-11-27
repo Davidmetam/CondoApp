@@ -7,4 +7,6 @@
     <string name="login_subtitle">Gestiona tu hogar con confianza</string>
     <string name="login_button">Iniciar Sesión</string>
     <string name="register_text">¿No tienes cuenta? Solicita acceso</string>
+
+    <string name="default_web_client_id">TU_WEB_CLIENT_ID_AQUI</string>
 </resources>

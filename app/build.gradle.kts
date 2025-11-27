@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -52,4 +53,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+
+    // Librerías específicas requeridas según tu PDF
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx") // Para Login
+    implementation("com.google.firebase:firebase-firestore-ktx") // Base de datos
+    implementation("com.google.firebase:firebase-storage-ktx") // Para subir fotos de comprobantes/tickets
+    implementation("com.google.firebase:firebase-messaging-ktx") // Para notificaciones Push
+
+    // Si vas a usar Login con Google también necesitas esto:
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 }
