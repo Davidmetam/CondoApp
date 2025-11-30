@@ -23,14 +23,15 @@ data class Reservation(
     val status: String = "Pendiente" // Pendiente, Aprobada, Rechazada
 )
 
+// ... otras clases ...
+
 data class Ticket(
     val id: String = "",
-    val userId: String = "", // Quién lo reportó
+    val userId: String = "", // Para saber quién reportó
     val title: String = "",
-    val description: String = "",
+    val status: String = "Abierto", // Abierto, En Progreso, Cerrado
     val date: String = "",
-    val status: String = "Abierto" // Abierto, En Progreso, Cerrado
-    // En el futuro podríamos agregar 'imageUrl' para evidencias
+    val description: String = ""
 )
 data class User(
     val uid: String = "",
