@@ -14,7 +14,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+// Asegúrate de que este import apunte a tu nuevo archivo Keys
+import com.android.example.condoapp.Keys
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,18 +25,21 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    // 1. Inicializar Firestore
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Inicializar Firebase Auth
+        // Inicializar Firebase Auth
         auth = Firebase.auth
 
-        // 2. Configurar Google Sign In
+        // Configurar Google Sign In
         setupGoogleSignIn()
 
-        // 3. Botón Login con Correo/Contraseña
+        // Botón Login con Correo/Contraseña
         binding.btnLogin.setOnClickListener {
             val email = binding.tilEmail.editText?.text.toString()
             val password = binding.tilPassword.editText?.text.toString()
@@ -45,12 +51,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // 4. Botón Login con Google
+        // Botón Login con Google
         binding.btnGoogle.setOnClickListener {
             signInWithGoogle()
         }
 
-        // 5. Botón de Registro (Por ahora crea usuario con los mismos campos)
+        // Botón de Registro
         binding.tvRegister.setOnClickListener {
             val email = binding.tilEmail.editText?.text.toString()
             val password = binding.tilPassword.editText?.text.toString()
@@ -85,14 +91,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun registerWithEmail(email: String, pass: String) {
-        // NOTA: Según tu PDF, el registro requiere aprobación.
-        // Aquí creamos la cuenta en Auth, pero luego deberíamos guardar
-        // el usuario en Firestore con estado "pendiente".
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "Cuenta creada exitosamente", Toast.LENGTH_SHORT).show()
-                    navigateToMain()
+                    val user = auth.currentUser
+                    // Crear objeto usuario con datos básicos
+                    // Nota: Asegúrate de haber agregado la data class User en Models.kt
+                    val newUser = User(
+                        uid = user!!.uid,
+                        email = email,
+                        nombreCompleto = "Usuario Nuevo", // Valor temporal hasta que editen perfil
+                        rol = "Residente",
+                        estado = "Pendiente"
+                    )
+
+                    saveUserToFirestore(newUser)
                 } else {
                     Toast.makeText(baseContext, "Fallo el registro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -102,10 +115,9 @@ class LoginActivity : AppCompatActivity() {
     // --- Lógica de Google Sign-In ---
 
     private fun setupGoogleSignIn() {
-        // Configura el ID de cliente web (búscalo en tu google-services.json o consola)
-        // Usualmente es el string largo que termina en .apps.googleusercontent.com
+        // Usamos la constante desde Keys.kt
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(Keys.WEB_CLIENT_ID)
             .requestEmail()
             .build()
 
@@ -137,10 +149,47 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    navigateToMain()
+                    val firebaseUser = auth.currentUser
+                    // Verificamos si el usuario ya existe en Firestore antes de sobrescribirlo
+                    checkUserExists(firebaseUser!!)
                 } else {
                     Toast.makeText(this, "Error de autenticación con Firebase", Toast.LENGTH_SHORT).show()
                 }
+            }
+    }
+
+    // --- Lógica de Firestore ---
+
+    private fun checkUserExists(firebaseUser: com.google.firebase.auth.FirebaseUser) {
+        val docRef = db.collection("users").document(firebaseUser.uid)
+        docRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // El usuario ya existe, solo entramos
+                navigateToMain()
+            } else {
+                // Es la primera vez que entra con Google, lo registramos en la BD
+                val newUser = User(
+                    uid = firebaseUser.uid,
+                    nombreCompleto = firebaseUser.displayName ?: "Usuario Google",
+                    email = firebaseUser.email ?: "",
+                    rol = "Residente",
+                    estado = "Pendiente"
+                )
+                saveUserToFirestore(newUser)
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error al verificar usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveUserToFirestore(user: User) {
+        db.collection("users").document(user.uid).set(user)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Registro completado exitosamente", Toast.LENGTH_SHORT).show()
+                navigateToMain()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar datos: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
