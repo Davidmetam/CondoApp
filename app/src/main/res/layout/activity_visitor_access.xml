@@ -55,8 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="24dp"
-            android:src="@drawable/ic_launcher_foreground"
-            app:tint="@color/navy_blue_intenso"/>
+            android:src="@drawable/ic_launcher_foreground"/>
 
     </com.google.android.material.card.MaterialCardView>
 

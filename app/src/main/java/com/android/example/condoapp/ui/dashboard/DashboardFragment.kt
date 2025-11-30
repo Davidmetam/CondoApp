@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.android.example.condoapp.AccountStatusActivity
+import com.android.example.condoapp.DirectoryActivity
 import com.android.example.condoapp.MaintenanceActivity
 import com.android.example.condoapp.R
 import com.android.example.condoapp.ReservationsActivity
@@ -62,7 +63,13 @@ class DashboardFragment : Fragment() {
             activityClass = MaintenanceActivity::class.java
         )
 
-        binding.cardDirectory.tvMenuTitle.text = "Directorio"
+        setupMenuCard(
+            cardBinding = binding.cardDirectory,
+            title = "directorio",
+            iconRes = R.drawable.condoapp,
+            activityClass = DirectoryActivity::class.java
+        )
+
 
         val orangeColor = ContextCompat.getColor(requireContext(), R.color.naranja_ambar)
         binding.cardSos.root.setCardBackgroundColor(Color.parseColor("#FFEBEE"))

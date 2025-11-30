@@ -87,3 +87,34 @@ class TicketAdapter(private val list: List<Ticket>) : RecyclerView.Adapter<Ticke
     }
     override fun getItemCount() = list.size
 }
+// En Adapters.kt, agrega esta clase al final:
+
+class ContactAdapter(
+    private val list: List<Contact>,
+    private val onCallClick: (String) -> Unit // Función lambda para manejar el click
+) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val name: TextView = view.findViewById(R.id.tv_contact_name)
+        val desc: TextView = view.findViewById(R.id.tv_contact_desc)
+        val btnCall: View = view.findViewById(R.id.btn_call_contact)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = list[position]
+        holder.name.text = item.name
+        holder.desc.text = item.description
+
+        // Al hacer clic en el botón de teléfono, ejecutamos la acción enviando el número
+        holder.btnCall.setOnClickListener {
+            onCallClick(item.phoneNumber)
+        }
+    }
+
+    override fun getItemCount() = list.size
+}

@@ -39,6 +39,14 @@
             android:name=".MaintenanceActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".DirectoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".TicketsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

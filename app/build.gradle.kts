@@ -65,4 +65,5 @@ dependencies {
 
     // Si vas a usar Login con Google también necesitas esto:
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.google.zxing:core:3.5.2")
 }

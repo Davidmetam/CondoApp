@@ -69,6 +69,7 @@
         <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0"/>
 
         <TextView
+            android:id="@+id/tv_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cerrar Sesión"

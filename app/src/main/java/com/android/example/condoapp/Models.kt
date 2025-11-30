@@ -1,10 +1,11 @@
 package com.android.example.condoapp
-
+// Agregamos valores por defecto (= "") para que Firestore pueda crear el objeto
 data class Announcement(
-    val title: String,
-    val date: String,
-    val content: String,
-    val type: String
+    val id: String = "", // Agregamos ID por si necesitamos editar/borrar luego
+    val title: String = "",
+    val date: String = "", // Guardaremos la fecha como texto formateado por simplicidad
+    val content: String = "",
+    val type: String = "Aviso"
 )
 
 data class Transaction(
@@ -15,19 +16,22 @@ data class Transaction(
 )
 
 data class Reservation(
-    val areaName: String,
-    val dateTime: String,
-    val status: String
+    val id: String = "",
+    val userId: String = "", // Para saber de quién es
+    val areaName: String = "",
+    val dateTime: String = "",
+    val status: String = "Pendiente" // Pendiente, Aprobada, Rechazada
 )
 
 data class Ticket(
-    val title: String,
-    val status: String,
-    val date: String,
-    val description: String
+    val id: String = "",
+    val userId: String = "", // Quién lo reportó
+    val title: String = "",
+    val description: String = "",
+    val date: String = "",
+    val status: String = "Abierto" // Abierto, En Progreso, Cerrado
+    // En el futuro podríamos agregar 'imageUrl' para evidencias
 )
-// ... tus otras data classes ...
-
 data class User(
     val uid: String = "",
     val nombreCompleto: String = "",
@@ -35,4 +39,18 @@ data class User(
     val rol: String = "Residente", // Por defecto
     val idDepartamento: String? = null,
     val estado: String = "Pendiente" // Para la aprobación que menciona el PDF
+)
+data class Visit(
+    val id: String = "",
+    val hostId: String = "",       // ID del residente que invita
+    val visitorName: String = "",
+    val creationDate: String = "",
+    val status: String = "Activa"  // Activa, Completada, Expirada
+)
+data class Contact(
+    val id: String = "",
+    val name: String = "",
+    val phoneNumber: String = "", // Número de teléfono
+    val description: String = "", // Ej: "Guardia Turno Nocturno"
+    val iconName: String = "default" // Para poner íconos distintos si quisiéramos luego
 )
