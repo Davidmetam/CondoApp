@@ -55,3 +55,11 @@ data class Contact(
     val description: String = "", // Ej: "Guardia Turno Nocturno"
     val iconName: String = "default" // Para poner íconos distintos si quisiéramos luego
 )
+data class SosAlert(
+    val id: String = "",
+    val userId: String = "",
+    val userName: String = "",
+    val date: String = "",
+    val type: String = "Emergencia Médica", // O "Seguridad", "Incendio"
+    val status: String = "Activa"
+)
