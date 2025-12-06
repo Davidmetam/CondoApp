@@ -37,9 +37,11 @@ data class User(
     val uid: String = "",
     val nombreCompleto: String = "",
     val email: String = "",
-    val rol: String = "Residente", // Por defecto
+    val phone: String = "",        // Nuevo campo
+    val photoUrl: String = "",     // Nuevo campo para la imagen
+    val rol: String = "Residente",
     val idDepartamento: String? = null,
-    val estado: String = "Pendiente" // Para la aprobación que menciona el PDF
+    val estado: String = "Pendiente"
 )
 data class Visit(
     val id: String = "",
